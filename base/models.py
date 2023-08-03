@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -8,3 +9,13 @@ class Food(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Todo(models.Model):
+    task = models.CharField(max_length=250)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
+    completed= models.BooleanField(default=False, blank=True)
+    updated = models.DateTimeField(auto_now=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self) -> str:
+        return self.task

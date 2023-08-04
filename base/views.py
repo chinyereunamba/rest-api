@@ -66,7 +66,7 @@ def post_todo(request):
 def update_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
     serializer = TodoSerializer(todo, data=request.data)
-    
+
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
@@ -78,6 +78,6 @@ def delete_todo(request, pk):
         todo = Todo.objects.get(pk=pk)
         if request.method == 'DELETE':
             todo.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(data={"Deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
     except Todo.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
